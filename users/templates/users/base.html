@@ -1,3 +1,59 @@
-{% block content %}
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+{% load static %}
+<head>
+    <script src="{% static 'js/color-modes.js' %}"></script>
+    <meta charset="utf-8">
+    <title>Управляй задачами правильно</title>
 
+    <link href="{% static 'css/bootstrap.min.css'%}"  rel="stylesheet">
+
+</head>
+<h1 class="visually-hidden"></h1>
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-4">Задачи</span>
+      </a>
+      <ul class="nav nav-pills">
+          {% if user.is_authenticated %}
+          <li class="nav-item"><form method="post" action="{% url 'users:logout_user' %}">
+              {% csrf_token %}
+              <button type="submit" class="nav-link">Выход</button>
+
+          </form></li>
+          {% else %}
+          <li class="nav-item"><a href="{% url 'users:login_user' %}" class="nav-link">Вход</a></li>
+          <li class="nav-item"><a href="{% url 'users:create_user' %}" class="nav-link active" aria-current="page">Регистрация</a></li>
+          {% endif %}
+          {% if user.is_authenticated %}
+          <li class="nav-item"><a href="{% url 'users:detail_user' user.pk %}" class="nav-link">Профиль</a></li>
+          <li class="nav-item"><a href="{% url 'todo:task_list' %}" class="nav-link">Задачи</a></li>
+          {% endif %}
+        <li class="nav-item"><a href="#" class="nav-link">О нас</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+      </ul>
+    </header>
+  </div>
+<body>
+
+{% block content %}
 {% endblock %}
+<footer class="text-body-secondary py-5">
+    <div class="container">
+        <p class="float-end mb-1">
+            <a href="#">Подняться наверх</a>
+        </p>
+        <p class="mb-1">На этом сайте вы можете управлять своими задачами</p>
+        <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
+                href="/docs/5.3/getting-started/introduction/">getting started guide</a>.</p>
+    </div>
+</footer>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}">
+
+</script>
+
+</body>
+</html>

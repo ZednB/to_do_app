@@ -1,0 +1,50 @@
+{% extends 'users/base.html' %}
+{% block content %}
+<main>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Задачи</h1>
+                <p class="lead text-body-secondary">Управляй делами правильно</p>
+                <p>
+                    <a href="{% url 'todo:task_create' %}" class="btn btn-primary my-2">Создать новую задачу</a>
+<!--                    <a href="#" class="btn btn-secondary my-2">Secondary action</a>-->
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% for task in task_list %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                         xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail"
+                         preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#55595c"/>
+                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ task.name }}</text>
+                    </svg>
+                    <div class="card-body">
+                        <p class="card-text">{{ task.description }}</p>
+                        <p class="card-text">{{ task.owner }}</p>
+                        <p class="card-text">{{ task.status }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button class="nav-item"><a href="{% url 'todo:task_detail' task.pk %}" class="nav-link">Посмотреть</a></button>
+                                <button class="nav-item"><a href="{% url 'todo:task_update' task.pk %}" class="nav-link">Редактировать</a></button>
+                                <button class="nav-item"><a href="{% url 'todo:task_delete' task.pk %}" class="nav-link">Удалить</a></button>
+                            </div>
+                            <small class="text-body-secondary">{{ task.created_at }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
