@@ -17,8 +17,7 @@ class TaskCreateAPI(CreateAPIView):
     renderer_classes = [JSONRenderer]
 
     def perform_create(self, serializer):
-        user = serializer.save(owner=self.request.user)
-        user.save()
+        serializer.save(owner=self.request.user)
 
 
 class TaskListAPI(ListAPIView):
