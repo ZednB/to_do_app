@@ -20,14 +20,6 @@ class TaskCreate(CreateView):
         self.object.save()
         return super().form_valid(form)
 
-    # context = {'name': Task.name, 'description': Task.description, 'owner_id': owner.pk}
-
-
-    # def task_create(self, request):
-    #     if request.method.POST == 'POST':
-    #         Task.objects.create(name=Task.name, description=Task.description, owner_id=User.id)
-    #         Task.save(Task)
-
 
 class TaskList(ListView):
     model = Task
